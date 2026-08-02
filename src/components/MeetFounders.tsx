@@ -1,42 +1,43 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Award, Clock, Users, ArrowRight, Phone } from 'lucide-react';
-import souravImage from '../assets/sourav.jpeg';
-import sreerajImage from '../assets/sreeraj.jpg';
+import { motion } from "framer-motion";
+import { Award, Clock, Users, ArrowRight, Phone } from "lucide-react";
+import souravImage from "../assets/sourav.jpeg";
+import sreerajImage from "../assets/sreeraj.jpeg";
 const founders = [
-{
-  name: 'Sourav C',
-  role: 'Co-Founder',
-  title: 'Biomedical Engineer',
-  phone: '+91 80784 22393',
-  ring: 'ring-primary/30',
-  image: souravImage
-},
-{
-  name: 'Sreeraj TM',
-  role: 'Co-Founder',
-  title: 'Biomedical Engineer',
-  phone: '+91 94965 22393',
-  ring: 'ring-slate-200',
-  image: sreerajImage
-}];
+  {
+    name: "Sourav C",
+    role: "Co-Founder",
+    title: "Biomedical Engineer",
+    phone: "+91 80784 22393",
+    ring: "ring-primary/30",
+    image: souravImage,
+  },
+  {
+    name: "Sreeraj TM",
+    role: "Co-Founder",
+    title: "Biomedical Engineer",
+    phone: "+91 94965 22393",
+    ring: "ring-slate-200",
+    image: sreerajImage,
+  },
+];
 
 const trustItems = [
-{
-  icon: <Award size={20} />,
-  title: 'Certified Professionals',
-  desc: 'Our team consists of trained and certified sleep technicians and healthcare professionals.'
-},
-{
-  icon: <Clock size={20} />,
-  title: 'Prompt Service',
-  desc: 'Quick response times and efficient service delivery. We value your time.'
-},
-{
-  icon: <Users size={20} />,
-  title: 'Ongoing Support',
-  desc: "We don't just diagnose and treat. We provide continuous support throughout your journey."
-}];
+  {
+    icon: <Award size={20} />,
+    title: "Certified Professionals",
+    desc: "Our team consists of trained and certified sleep technicians and healthcare professionals.",
+  },
+  {
+    icon: <Clock size={20} />,
+    title: "Prompt Service",
+    desc: "Quick response times and efficient service delivery. We value your time.",
+  },
+  {
+    icon: <Users size={20} />,
+    title: "Ongoing Support",
+    desc: "We don't just diagnose and treat. We provide continuous support throughout your journey.",
+  },
+];
 
 export function MeetFounders() {
   return (
@@ -47,20 +48,20 @@ export function MeetFounders() {
           <motion.div
             initial={{
               opacity: 0,
-              y: 20
+              y: 20,
             }}
             whileInView={{
               opacity: 1,
-              y: 0
+              y: 0,
             }}
             viewport={{
-              once: true
+              once: true,
             }}
             transition={{
-              duration: 0.5
+              duration: 0.5,
             }}
-            className="text-center max-w-2xl mx-auto mb-16">
-            
+            className="text-center max-w-2xl mx-auto mb-16"
+          >
             <div className="text-sm font-semibold text-primary tracking-widest uppercase mb-3">
               Leadership
             </div>
@@ -74,33 +75,34 @@ export function MeetFounders() {
           </motion.div>
 
           <div className="grid sm:grid-cols-2 gap-12 max-w-3xl mx-auto">
-            {founders.map((f, idx) =>
-            <motion.div
-              key={f.name}
-              initial={{
-                opacity: 0,
-                y: 30
-              }}
-              whileInView={{
-                opacity: 1,
-                y: 0
-              }}
-              viewport={{
-                once: true
-              }}
-              transition={{
-                duration: 0.5,
-                delay: idx * 0.15
-              }}
-              className="flex flex-col items-center text-center">
-              
+            {founders.map((f, idx) => (
+              <motion.div
+                key={f.name}
+                initial={{
+                  opacity: 0,
+                  y: 30,
+                }}
+                whileInView={{
+                  opacity: 1,
+                  y: 0,
+                }}
+                viewport={{
+                  once: true,
+                }}
+                transition={{
+                  duration: 0.5,
+                  delay: idx * 0.15,
+                }}
+                className="flex flex-col items-center text-center"
+              >
                 <div
-                className={`w-48 h-48 rounded-full bg-white ring-8 ${f.ring} shadow-card flex items-center justify-center mb-6 overflow-hidden border border-slate-100`}>
-                
+                  className={`w-48 h-48 rounded-full bg-white ring-8 ${f.ring} shadow-card flex items-center justify-center mb-6 overflow-hidden border border-slate-100`}
+                >
                   <img
                     src={f.image}
                     alt={`${f.name}, ${f.title}`}
-                    className="h-full w-full object-cover object-top" />
+                    className="h-full w-full object-cover object-top"
+                  />
                 </div>
                 <h3 className="text-xl font-bold text-slate-900 mb-1">
                   {f.name}
@@ -110,14 +112,14 @@ export function MeetFounders() {
                 </div>
                 <div className="text-slate-500 text-sm mb-3">{f.title}</div>
                 <a
-                href={`tel:${f.phone.replace(/\s/g, '')}`}
-                className="inline-flex items-center gap-2 text-primary font-medium text-sm hover:gap-3 transition-all">
-                
+                  href={`tel:${f.phone.replace(/\s/g, "")}`}
+                  className="inline-flex items-center gap-2 text-primary font-medium text-sm hover:gap-3 transition-all"
+                >
                   <Phone size={14} />
                   {f.phone}
                 </a>
               </motion.div>
-            )}
+            ))}
           </div>
         </div>
       </div>
@@ -129,16 +131,16 @@ export function MeetFounders() {
             <motion.div
               initial={{
                 opacity: 0,
-                x: -20
+                x: -20,
               }}
               whileInView={{
                 opacity: 1,
-                x: 0
+                x: 0,
               }}
               viewport={{
-                once: true
-              }}>
-              
+                once: true,
+              }}
+            >
               <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
                 Why Patients Trust Us
               </h2>
@@ -148,25 +150,25 @@ export function MeetFounders() {
               </p>
 
               <div className="space-y-6">
-                {trustItems.map((item, idx) =>
-                <motion.div
-                  key={item.title}
-                  initial={{
-                    opacity: 0,
-                    y: 10
-                  }}
-                  whileInView={{
-                    opacity: 1,
-                    y: 0
-                  }}
-                  viewport={{
-                    once: true
-                  }}
-                  transition={{
-                    delay: idx * 0.1
-                  }}
-                  className="flex items-start gap-4">
-                  
+                {trustItems.map((item, idx) => (
+                  <motion.div
+                    key={item.title}
+                    initial={{
+                      opacity: 0,
+                      y: 10,
+                    }}
+                    whileInView={{
+                      opacity: 1,
+                      y: 0,
+                    }}
+                    viewport={{
+                      once: true,
+                    }}
+                    transition={{
+                      delay: idx * 0.1,
+                    }}
+                    className="flex items-start gap-4"
+                  >
                     <div className="w-10 h-10 rounded-full bg-blue-50 text-primary flex items-center justify-center shrink-0">
                       {item.icon}
                     </div>
@@ -179,24 +181,24 @@ export function MeetFounders() {
                       </p>
                     </div>
                   </motion.div>
-                )}
+                ))}
               </div>
             </motion.div>
 
             <motion.div
               initial={{
                 opacity: 0,
-                x: 20
+                x: 20,
               }}
               whileInView={{
                 opacity: 1,
-                x: 0
+                x: 0,
               }}
               viewport={{
-                once: true
+                once: true,
               }}
-              className="relative bg-primary text-white rounded-3xl p-10 md:p-12 overflow-hidden shadow-float">
-              
+              className="relative bg-primary text-white rounded-3xl p-10 md:p-12 overflow-hidden shadow-float"
+            >
               <div className="absolute -top-10 -right-10 w-40 h-40 rounded-full bg-white/10 blur-2xl" />
               <div className="absolute -bottom-10 -left-10 w-40 h-40 rounded-full bg-secondary/30 blur-2xl" />
               <div className="relative">
@@ -216,6 +218,6 @@ export function MeetFounders() {
           </div>
         </div>
       </div>
-    </section>);
-
+    </section>
+  );
 }

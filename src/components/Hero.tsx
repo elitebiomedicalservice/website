@@ -42,7 +42,7 @@ export function Hero() {
     <section
       ref={sectionRef}
       id="home"
-      className="relative pt-28 pb-20 lg:pt-36 lg:pb-32 overflow-hidden mesh-hero dark:mesh-dark">
+      className="relative pt-36 pb-20 lg:pt-44 lg:pb-32 overflow-hidden mesh-hero dark:mesh-dark">
       
       <motion.div
         style={{ y: backgroundY }}
@@ -149,7 +149,7 @@ export function Hero() {
                 repeat: Infinity,
                 ease: 'easeInOut'
               }}
-              className="absolute top-10 -left-6 md:-left-12 liquid-glass p-4 rounded-2xl flex items-center gap-4">
+              className="absolute top-16 sm:top-24 -left-3 md:-left-10 z-20 liquid-glass p-4 rounded-2xl flex items-center gap-4 shadow-xl">
               
               <div className="w-12 h-12 rounded-full bg-teal-50 dark:bg-teal-900/50 flex items-center justify-center text-primary dark:text-teal-300">
                 <Activity size={24} />
@@ -174,7 +174,7 @@ export function Hero() {
                 ease: 'easeInOut',
                 delay: 1
               }}
-              className="absolute bottom-20 -right-6 md:-right-12 liquid-glass p-4 rounded-2xl flex items-center gap-4">
+              className="absolute bottom-10 sm:bottom-16 -right-3 md:-right-10 z-20 liquid-glass p-4 rounded-2xl flex items-center gap-4 shadow-xl">
               
               <div className="w-12 h-12 rounded-full bg-amber-50 dark:bg-amber-900/50 flex items-center justify-center text-accent dark:text-amber-300">
                 <Shield size={24} />

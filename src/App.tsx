@@ -10,6 +10,9 @@ import { SleepStudy } from './pages/SleepStudy';
 import { CpapBipap } from './pages/CpapBipap';
 import { About } from './pages/About';
 import { Contact } from './pages/Contact';
+import { ProductsCatalog } from './pages/ProductsCatalog';
+import { ProductDetail } from './pages/ProductDetail';
+
 export function App() {
   return (
     <BrowserRouter>
@@ -19,6 +22,8 @@ export function App() {
         <main className="flex-grow">
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/products" element={<ProductsCatalog />} />
+            <Route path="/products/:id" element={<ProductDetail />} />
             <Route
               path="/oxygen-concentrators"
               element={<OxygenConcentrators />} />

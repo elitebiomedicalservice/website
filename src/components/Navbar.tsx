@@ -36,16 +36,20 @@ export function Navbar() {
     href: '/'
   },
   {
+    name: 'Catalog',
+    href: '/products'
+  },
+  {
     name: 'Oxygen Concentrators',
     href: '/oxygen-concentrators'
   },
   {
-    name: 'Sleep Study',
-    href: '/sleep-study'
-  },
-  {
     name: 'CPAP & BiPAP',
     href: '/cpap-bipap'
+  },
+  {
+    name: 'Sleep Study',
+    href: '/sleep-study'
   },
   {
     name: 'About',

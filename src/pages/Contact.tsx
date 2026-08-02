@@ -202,13 +202,13 @@ export function Contact() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="overflow-hidden rounded-3xl border border-slate-200 shadow-card bg-white">
             <iframe
-              title="Elite Biomedical Services location on Google Maps"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d244.27301340171636!2d75.59170190132022!3d11.597075984988566!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba6846bffc2095d%3A0xdd880f807fec8414!2sSree%20Narayana%20School%20Rd%2C%20Edodi%2C%20Vatakara%2C%20Kerala%20673101!5e0!3m2!1sen!2sin!4v1779492896649!5m2!1sen!2sin"
+              title="ELITE BIOMEDICAL SERVICES location on Google Maps"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3908.375422136033!2d75.58780967696397!3d11.59656108860657!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba685098e6277d7%3A0x24f279504245f60f!2sELITE%20BIOMEDICAL%20SERVICES!5e0!3m2!1sen!2sin!4v1785694217319!5m2!1sen!2sin"
               className="h-[28rem] w-full"
               style={{ border: 0 }}
               allowFullScreen
               loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade" />
+              referrerPolicy="strict-origin-when-cross-origin" />
           </div>
         </div>
       </section>

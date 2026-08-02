@@ -111,15 +111,16 @@ export function WhatIsConcentrator() {
               {/* Decorative floating elements */}
               <motion.div
                 animate={{
-                  y: [-10, 10, -10]
+                  y: [-8, 8, -8]
                 }}
                 transition={{
                   duration: 4,
-                  repeat: Infinity
+                  repeat: Infinity,
+                  ease: 'easeInOut'
                 }}
-                className="absolute top-10 right-10 bg-white p-3 rounded-xl shadow-card border border-teal-100">
-                
-                <span className="text-xs font-bold text-slate-700">
+                className="absolute top-2 right-2 sm:right-4 z-20 bg-white dark:bg-slate-800 px-4 py-2.5 rounded-2xl shadow-xl border border-teal-100 dark:border-slate-700 flex items-center gap-2">
+                <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+                <span className="text-xs font-bold text-slate-800 dark:text-slate-200">
                   No Refills Needed
                 </span>
               </motion.div>
