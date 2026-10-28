@@ -1,4 +1,3 @@
-import React from 'react';
 import { PageHero } from '../components/PageHero';
 import { WhatIsConcentrator } from '../components/WhatIsConcentrator';
 import { HowItWorks } from '../components/HowItWorks';

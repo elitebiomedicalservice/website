@@ -1,6 +1,7 @@
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { Phone, MessageCircle, Calendar, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Phone, MessageCircle, Calendar } from 'lucide-react';
 const contactPhone = '+91 9496522393';
 export function FinalCTA() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -46,17 +47,17 @@ export function FinalCTA() {
             </p>
 
             <div className="flex flex-col sm:flex-row justify-center gap-4 mb-12">
-              <button className="bg-white text-primary hover:bg-teal-50 px-8 py-4 rounded-full font-bold transition-all shadow-float flex items-center justify-center gap-2 text-lg">
+              <Link to="/contact?service=Oxygen%20Concentrator" className="bg-white text-primary hover:bg-teal-50 px-8 py-4 rounded-full font-bold transition-all shadow-float flex items-center justify-center gap-2 text-lg">
                 <Calendar size={20} />
                 Book Consultation
-              </button>
-              <button className="bg-emerald-500 hover:bg-emerald-600 text-white px-8 py-4 rounded-full font-bold transition-all shadow-float flex items-center justify-center gap-2 text-lg">
+              </Link>
+              <a href={`https://wa.me/918078422393?text=${encodeURIComponent('Hello Elite Biomedical Services, I would like to enquire about your respiratory care services.')}`} target="_blank" rel="noreferrer" className="bg-emerald-500 hover:bg-emerald-600 text-white px-8 py-4 rounded-full font-bold transition-all shadow-float flex items-center justify-center gap-2 text-lg">
                 <MessageCircle size={20} />
                 WhatsApp Us
-              </button>
+              </a>
             </div>
 
-            {/* Emergency Card */}
+            {/* Direct contact card */}
             <div className="inline-flex items-center gap-4 bg-slate-900/50 border border-white/10 rounded-2xl p-4 text-left">
               <div className="bg-red-500/20 text-red-400 p-3 rounded-xl">
                 <Phone size={24} />

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Product } from '../types/product';
@@ -47,6 +46,8 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
           <img
             src={product.image}
             alt={product.name}
+                loading="lazy"
+                decoding="async"
             className="max-h-48 max-w-full object-contain group-hover:scale-105 transition-transform duration-500 drop-shadow-md"
           />
         </Link>

@@ -1,5 +1,5 @@
-import React from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { Home, Plane, Check, Battery, Zap } from 'lucide-react';
 export function ConcentratorTypes() {
   return (
@@ -41,7 +41,7 @@ export function ConcentratorTypes() {
                 className="text-slate-300 group-hover:scale-110 transition-transform duration-500" />
               
               <div className="absolute top-4 left-4 bg-white px-3 py-1 rounded-full text-xs font-bold text-primary shadow-sm">
-                Most Popular
+                Home Use
               </div>
             </div>
             <div className="p-8">
@@ -74,9 +74,9 @@ export function ConcentratorTypes() {
                 )}
               </ul>
 
-              <button className="w-full bg-slate-900 hover:bg-slate-800 text-white py-3.5 rounded-xl font-medium transition-colors">
+              <Link to="/products?category=Oxygen%20Concentrators" className="block w-full bg-slate-900 hover:bg-slate-800 text-white text-center py-3.5 rounded-xl font-medium transition-colors">
                 View Home Models
-              </button>
+              </Link>
             </div>
           </motion.div>
 
@@ -138,9 +138,9 @@ export function ConcentratorTypes() {
                 )}
               </ul>
 
-              <button className="w-full bg-primary hover:bg-blue-700 text-white py-3.5 rounded-xl font-medium transition-colors shadow-float">
+              <Link to="/products?category=Portable%20Oxygen" className="block w-full bg-primary hover:bg-blue-700 text-white text-center py-3.5 rounded-xl font-medium transition-colors shadow-float">
                 View Portable Models
-              </button>
+              </Link>
             </div>
           </motion.div>
         </div>

@@ -7,7 +7,6 @@ import { chatKnowledge } from './src/data/chatKnowledge.js';
 
 const root = fileURLToPath(new URL('.', import.meta.url));
 const port = Number(process.env.PORT || 8787);
-const knowledge = chatKnowledge;
 const requestsByIp = new Map();
 const rateWindowMs = 60_000;
 const maxRequestsPerWindow = 12;
@@ -29,7 +28,7 @@ const model = process.env.OPENROUTER_MODEL || 'google/gemma-4-26b-a4b-it:free';
 function retrieveContext(query) {
   const terms = [...new Set(query.toLowerCase().match(/[\p{L}\p{N}]+/gu) || [])]
     .filter((term) => term.length > 2);
-  const ranked = knowledge.map((doc) => {
+  const ranked = chatKnowledge.map((doc) => {
     const text = `${doc.title} ${doc.content}`.toLowerCase();
     const score = terms.reduce((total, term) => total + (text.includes(term) ? 1 : 0), 0);
     return { ...doc, score };

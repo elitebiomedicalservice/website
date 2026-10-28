@@ -41,4 +41,3 @@ User-agent: CCBot
 Allow: /
 
 Sitemap: https://elitebiomedicalservice.com/sitemap.xml
-Sitemap: https://elitebiomedicalservice.com/llms.txt

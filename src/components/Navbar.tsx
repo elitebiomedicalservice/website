@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Menu, X, Phone, Moon, Sun } from "lucide-react";
+import { Menu, X, Phone } from "lucide-react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import logo from "../assets/elite_biomedical_logo_clean.png";
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [darkMode, setDarkMode] = useState(false);
   const location = useLocation();
   const isHome = location.pathname === "/";
   const isLightOverHero = !isHome && !scrolled;
@@ -22,14 +21,6 @@ export function Navbar() {
     setMobileMenuOpen(false);
     window.scrollTo(0, 0);
   }, [location.pathname]);
-  // Handle Dark Mode Toggle
-  useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-  }, [darkMode]);
   const navLinks = [
     {
       name: "Home",
@@ -134,6 +125,9 @@ export function Navbar() {
               {darkMode ? <Sun size={20} /> : <Moon size={20} />}
             </button> */}
             <button
+              aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+              aria-expanded={mobileMenuOpen}
+              aria-controls="mobile-navigation"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className={`p-2 transition-colors ${isLightOverHero ? "text-white" : "text-slate-900 dark:text-white"}`}
             >
@@ -146,6 +140,7 @@ export function Navbar() {
       {/* Mobile Menu */}
       {mobileMenuOpen && (
         <motion.div
+          id="mobile-navigation"
           initial={{
             opacity: 0,
             height: 0,

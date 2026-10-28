@@ -1,9 +1,9 @@
-import React from 'react';
 import { PageHero } from '../components/PageHero';
 import { MeetFounders } from '../components/MeetFounders';
 import { FinalCTA } from '../components/FinalCTA';
 import { motion } from 'framer-motion';
 import { Target, Heart } from 'lucide-react';
+import logo from '../assets/elite_biomedical_logo_clean.png';
 function OurStory() {
   return (
     <section className="py-24 bg-white">
@@ -49,12 +49,12 @@ function OurStory() {
             viewport={{
               once: true
             }}
-            className="bg-slate-100 rounded-3xl h-80 flex items-center justify-center overflow-hidden">
-            
+            className="bg-white rounded-3xl h-80 flex items-center justify-center overflow-hidden border border-slate-100 shadow-soft">
             <img
-              src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-              alt="Medical Team"
-              className="w-full h-full object-cover opacity-80 mix-blend-multiply" />
+              src={logo}
+              alt="Elite Biomedical Services logo"
+              loading="lazy"
+              className="w-2/3 max-h-64 object-contain" />
             
           </motion.div>
         </div>
@@ -102,33 +102,18 @@ function MissionVision() {
 }
 function StatsStrip() {
   const stats = [
-  {
-    value: '5+',
-    label: 'Years Serving Kerala'
-  },
-  {
-    value: '1000+',
-    label: 'Devices Installed'
-  },
-  {
-    value: '2500+',
-    label: 'Patients Helped'
-  },
-  {
-    value: '14',
-    label: 'Districts Covered'
-  }];
-
+  { value: '5+', label: 'Years Serving Kerala' },
+  { value: '1000+', label: 'Devices Installed' },
+  { value: '2500+', label: 'Patients Helped' },
+  { value: '14', label: 'Districts Covered' }];
   return (
     <section className="py-16 bg-primary text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-          {stats.map((s, i) =>
-          <div key={i}>
-              <div className="text-4xl font-bold mb-2">{s.value}</div>
-              <div className="text-blue-200 text-sm font-medium">{s.label}</div>
-            </div>
-          )}
+          {stats.map((stat) => <div key={stat.label}>
+            <div className="text-4xl font-bold mb-2">{stat.value}</div>
+            <div className="text-blue-200 text-sm font-medium">{stat.label}</div>
+          </div>)}
         </div>
       </div>
     </section>);

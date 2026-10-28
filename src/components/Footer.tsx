@@ -1,11 +1,8 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import {
   MapPin,
   Phone,
   Mail,
-  Facebook,
-  Twitter,
   Instagram,
 } from "lucide-react";
 import logo from "../assets/elite_biomedical_logo_clean.png";
@@ -31,25 +28,15 @@ export function Footer() {
               />
             </div>
             <p className="text-sm text-slate-400 mb-6 leading-relaxed">
-              Trusted respiratory and oxygen therapy equipment for home and
-              clinical care across Kerala — built for reliability, comfort, and
-              healthy living.
+              Respiratory and oxygen therapy equipment, sleep study support,
+              and biomedical services in Kerala.
             </p>
             <div className="flex gap-4">
               <a
-                href="#"
-                className="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center hover:bg-primary hover:text-white transition-colors"
-              >
-                <Facebook size={18} />
-              </a>
-              <a
-                href="#"
-                className="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center hover:bg-primary hover:text-white transition-colors"
-              >
-                <Twitter size={18} />
-              </a>
-              <a
                 href="https://www.instagram.com/elitebiomedicalservice/"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Elite Biomedical Services on Instagram"
                 className="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center hover:bg-primary hover:text-white transition-colors"
               >
                 <Instagram size={18} />

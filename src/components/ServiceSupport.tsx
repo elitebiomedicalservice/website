@@ -1,4 +1,3 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 import {
   Wrench,
@@ -8,6 +7,7 @@ import {
   Users,
   Settings } from
 'lucide-react';
+import { Link } from 'react-router-dom';
 export function ServiceSupport() {
   const services = [
   {
@@ -79,9 +79,9 @@ export function ServiceSupport() {
                   Devices Serviced Annually
                 </div>
                 <div className="mt-4 pt-4 border-t border-white/10">
-                  <button className="w-full bg-primary hover:bg-teal-600 text-white py-3 rounded-xl font-medium transition-colors shadow-float">
+                  <Link to="/contact" className="block w-full bg-primary hover:bg-teal-600 text-center text-white py-3 rounded-xl font-medium transition-colors shadow-float">
                     Request Service
-                  </button>
+                  </Link>
                 </div>
               </div>
             </motion.div>

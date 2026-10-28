@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { PageHero } from '../components/PageHero';
-import { Phone, Mail, MapPin, AlertCircle } from 'lucide-react';
+import { Phone, Mail, MapPin, AlertCircle, MessageCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
 const contactPhone = '+91 9496522393';
 const contactEmail = 'elitebiomedicalservice@gmail.com';
@@ -9,75 +10,97 @@ const contactAddress = [
   'Near kelluettan smaraka mandir, edodi, vadakara,',
   'Kozhikode, Kerala- 673101'
 ];
+const serviceOptions = ['Oxygen Concentrator', 'Home Sleep Study', 'CPAP / BiPAP Machine', 'Device Servicing', 'Other'] as const;
+
 function ContactForm() {
-  const [submitted, setSubmitted] = useState(false);
-  const handleSubmit = (e: React.FormEvent) => {
+  const [searchParams] = useSearchParams();
+  const requestedService = searchParams.get('service');
+  const defaultService = serviceOptions.find((service) => service === requestedService) || serviceOptions[0];
+  const [handoffReady, setHandoffReady] = useState(false);
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 3000);
+    const values = new FormData(e.currentTarget);
+    const subject = `Website enquiry: ${String(values.get('service') || 'General question')}`;
+    const body = [
+      `Name: ${String(values.get('name') || '')}`,
+      `Phone: ${String(values.get('phone') || '')}`,
+      `Email: ${String(values.get('email') || 'Not provided')}`,
+      `Service: ${String(values.get('service') || '')}`,
+      '',
+      `Message: ${String(values.get('message') || 'No message provided')}`,
+    ].join('\n');
+    setHandoffReady(true);
+    window.location.href = `mailto:${contactEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   };
   return (
     <div className="liquid-glass-card p-8 rounded-3xl">
       <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">
         Send us a Message
       </h3>
-      {submitted ?
-      <div className="bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-400 p-4 rounded-xl mb-6 border border-green-100 dark:border-green-800">
-          Thank you! Your message has been sent. We will contact you shortly.
+      {handoffReady ?
+      <div role="status" className="bg-teal-50 dark:bg-teal-900/30 text-teal-800 dark:text-teal-300 p-4 rounded-xl mb-6 border border-teal-100 dark:border-teal-800">
+          Your email app should open with your enquiry ready. This website does not send or store the form. If it did not open, email {contactEmail} or call {contactPhone}.
         </div> :
       null}
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} aria-describedby="contact-form-note" className="space-y-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
+            <label htmlFor="contact-name" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
               Name
             </label>
             <input
+              id="contact-name"
+              name="name"
               required
               type="text"
+              autoComplete="name"
               className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-600 bg-white/50 dark:bg-slate-800/50 focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all dark:text-white"
               placeholder="John Doe" />
             
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
+            <label htmlFor="contact-phone" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
               Phone
             </label>
             <input
+              id="contact-phone"
+              name="phone"
               required
               type="tel"
+              autoComplete="tel"
               className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-600 bg-white/50 dark:bg-slate-800/50 focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all dark:text-white"
               placeholder={contactPhone} />
             
           </div>
         </div>
         <div>
-          <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
+          <label htmlFor="contact-email" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
             Email
           </label>
           <input
+            id="contact-email"
+            name="email"
             type="email"
+            autoComplete="email"
             className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-600 bg-white/50 dark:bg-slate-800/50 focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all dark:text-white"
             placeholder="john@example.com" />
           
         </div>
         <div>
-          <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
+          <label htmlFor="contact-service" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
             Service Interest
           </label>
-          <select className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-600 bg-white/50 dark:bg-slate-800/50 focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all dark:text-white">
-            <option>Oxygen Concentrator</option>
-            <option>Home Sleep Study</option>
-            <option>CPAP / BiPAP Machine</option>
-            <option>Device Servicing</option>
-            <option>Other</option>
+          <select id="contact-service" name="service" defaultValue={defaultService} required className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-600 bg-white/50 dark:bg-slate-800/50 focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all dark:text-white">
+            {serviceOptions.map((service) => <option key={service} value={service}>{service}</option>)}
           </select>
         </div>
         <div>
-          <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
+          <label htmlFor="contact-message" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
             Message
           </label>
           <textarea
+            id="contact-message"
+            name="message"
             rows={4}
             className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-600 bg-white/50 dark:bg-slate-800/50 focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all dark:text-white"
             placeholder="How can we help you?">
@@ -87,8 +110,11 @@ function ContactForm() {
           type="submit"
           className="w-full bg-primary hover:bg-teal-700 text-white py-4 rounded-xl font-bold transition-all shadow-md">
           
-          Send Message
+          Prepare Email Enquiry
         </button>
+        <p className="text-xs text-slate-500 dark:text-slate-400" id="contact-form-note">
+          This opens your email app with the enquiry details. The website does not submit or store this form.
+        </p>
       </form>
     </div>);
 
@@ -101,13 +127,27 @@ function ContactInfo() {
           <Phone size={24} />
         </div>
         <div>
-          <h4 className="font-bold text-slate-900 dark:text-white">
-            Phone & WhatsApp
-          </h4>
+          <h4 className="font-bold text-slate-900 dark:text-white">Phone</h4>
           <a
             href={`tel:${contactPhone.replace(/\s/g, '')}`}
             className="text-slate-600 dark:text-slate-300 hover:text-primary transition-colors">
             {contactPhone}
+          </a>
+        </div>
+      </div>
+      <div className="liquid-glass-card p-6 rounded-2xl flex items-start gap-4">
+        <div className="p-3 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 rounded-xl">
+          <MessageCircle size={24} />
+        </div>
+        <div>
+          <h4 className="font-bold text-slate-900 dark:text-white">WhatsApp Enquiries</h4>
+          <a
+            href={`https://wa.me/918078422393?text=${encodeURIComponent('Hello Elite Biomedical Services, I have an enquiry.')}`}
+            target="_blank"
+            rel="noreferrer"
+            className="text-slate-600 dark:text-slate-300 hover:text-primary transition-colors"
+          >
+            +91 8078422393
           </a>
         </div>
       </div>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { getProductById, products } from "../data/products";
@@ -72,7 +72,7 @@ export function ProductDetail() {
     <div className="bg-slate-50/50 dark:bg-slate-950 min-h-screen pt-24 md:pt-28 lg:pt-32 pb-24">
       <SEO
         title={`${product.name} (${product.brand}) | Oxygen & Respiratory Care | Elite Biomedical Kerala`}
-        description={`${product.name} ${product.series ? `- ${product.series}` : ''}: ${product.shortDesc} Available for sale, rental & 24/7 service in Vadakara, Kozhikode, Kannur, Wayanad & Malappuram.`}
+        description={`${product.name}${product.series ? ` - ${product.series}` : ''}: ${product.shortDesc} Contact Elite Biomedical Services to ask about pricing, sales or rental options, delivery, and service coverage in your area.`}
         keywords={`${product.name}, ${product.brand} oxygen concentrator, ${product.name} Vadakara, ${product.name} Kozhikode, ${product.name} price Kerala, buy ${product.name}`}
         image={product.image}
         product={product}
@@ -146,7 +146,7 @@ export function ProductDetail() {
                 <div className="p-3 bg-slate-50 dark:bg-slate-800/60 rounded-xl">
                   <Truck size={20} className="mx-auto text-primary mb-1" />
                   <span className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 block">
-                    Kerala Delivery
+                    Ask About Delivery
                   </span>
                 </div>
                 <div className="p-3 bg-slate-50 dark:bg-slate-800/60 rounded-xl">
@@ -158,7 +158,7 @@ export function ProductDetail() {
                 <div className="p-3 bg-slate-50 dark:bg-slate-800/60 rounded-xl">
                   <Award size={20} className="mx-auto text-primary mb-1" />
                   <span className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 block">
-                    Certified Genuine
+                    Warranty Information
                   </span>
                 </div>
               </div>
@@ -302,7 +302,7 @@ export function ProductDetail() {
 
                   <p className="text-xs text-slate-500 dark:text-slate-400 text-center mt-4">
                     Need help choosing? Our certified bio-engineers assist with
-                    prescription & home setup.
+                    prescription &amp; home setup.
                   </p>
                 </div>
               </div>
@@ -316,15 +316,15 @@ export function ProductDetail() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Tab Buttons */}
           <div className="flex border-b border-slate-200 dark:border-slate-800 overflow-x-auto gap-8 mb-12">
-            {[
+            {([
               { id: 'overview', label: 'Key Features & Overview' },
               { id: 'specs', label: 'Technical Specifications' },
               { id: 'package', label: "What's in the Box" },
               { id: 'why-us', label: 'Elite Biomedical Advantage' }
-            ].map(tab => (
+            ] as const).map(tab => (
               <button
                 key={tab.id}
-                onClick={() => setActiveTab(tab.id as any)}
+                onClick={() => setActiveTab(tab.id)}
                 className={`py-4 text-sm md:text-base font-bold whitespace-nowrap border-b-2 transition-colors ${
                   activeTab === tab.id
                     ? 'border-primary text-primary'
@@ -476,7 +476,7 @@ export function ProductDetail() {
                 <div className="p-6 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800">
                   <Wrench size={28} className="text-primary mb-3" />
                   <h4 className="font-bold text-slate-900 dark:text-white text-lg mb-2">
-                    Certified Bio-Medical Engineers
+                    Equipment Setup & Support
                   </h4>
                   <p className="text-slate-600 dark:text-slate-400 text-sm">
                     Our team of qualified biomedical engineers inspects,
@@ -498,12 +498,10 @@ export function ProductDetail() {
                 <div className="p-6 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800">
                   <ShieldCheck size={28} className="text-primary mb-3" />
                   <h4 className="font-bold text-slate-900 dark:text-white text-lg mb-2">
-                    Backup Machine Guarantee
+                    Warranty &amp; Service Information
                   </h4>
                   <p className="text-slate-600 dark:text-slate-400 text-sm">
-                    If your equipment requires maintenance, we immediately
-                    provide a standby replacement unit to ensure uninterrupted
-                    therapy.
+                    Ask about warranty coverage and service options for this model.
                   </p>
                 </div>
 

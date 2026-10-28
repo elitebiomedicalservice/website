@@ -1,4 +1,3 @@
-import React from 'react';
 import { PageHero } from '../components/PageHero';
 import { FinalCTA } from '../components/FinalCTA';
 import { ProductCard } from '../components/ProductCard';
@@ -137,8 +136,8 @@ function TherapySupport() {
             },
             {
               step: '3',
-              title: 'Ongoing Monitoring & Backup',
-              desc: 'Sleep report extraction, compliance monitoring, and immediate replacement unit standby.'
+              title: 'Technical Support',
+              desc: 'Contact the team about device use, reports, repairs, and maintenance.'
             }
           ].map((s, i) => (
             <div key={i} className="flex flex-col items-center max-w-xs bg-white dark:bg-slate-900 p-6 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm">

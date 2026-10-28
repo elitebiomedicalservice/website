@@ -107,13 +107,7 @@ export function SEO({ title, description, keywords, image, product }: SEOProps =
     upsertMeta('meta[name="author"]', { name: 'author', content: 'Elite Biomedical Services' });
     upsertLink('link[rel="canonical"]', { rel: 'canonical', href: canonical });
 
-    // 2. Local Geo SEO Metadata
-    upsertMeta('meta[name="geo.region"]', { name: 'geo.region', content: 'IN-KL' });
-    upsertMeta('meta[name="geo.placename"]', { name: 'geo.placename', content: 'Vadakara, Kozhikode, Kerala' });
-    upsertMeta('meta[name="geo.position"]', { name: 'geo.position', content: '11.596561;75.587810' });
-    upsertMeta('meta[name="ICBM"]', { name: 'ICBM', content: '11.596561, 75.587810' });
-
-    // 3. OpenGraph Tags
+    // 2. OpenGraph Tags
     const ogType = product ? 'product' : 'website';
     upsertMeta('meta[property="og:type"]', { property: 'og:type', content: ogType });
     upsertMeta('meta[property="og:site_name"]', { property: 'og:site_name', content: 'Elite Biomedical Services' });
@@ -123,13 +117,13 @@ export function SEO({ title, description, keywords, image, product }: SEOProps =
     upsertMeta('meta[property="og:image"]', { property: 'og:image', content: pageImage });
     upsertMeta('meta[property="og:locale"]', { property: 'og:locale', content: 'en_IN' });
 
-    // 4. Twitter Card Tags
+    // 3. Twitter Card Tags
     upsertMeta('meta[name="twitter:card"]', { name: 'twitter:card', content: 'summary_large_image' });
     upsertMeta('meta[name="twitter:title"]', { name: 'twitter:title', content: pageTitle });
     upsertMeta('meta[name="twitter:description"]', { name: 'twitter:description', content: pageDesc });
     upsertMeta('meta[name="twitter:image"]', { name: 'twitter:image', content: pageImage });
 
-    // 5. Dynamic JSON-LD Schema
+    // 4. Dynamic JSON-LD Schema
     if (product) {
       // Product Schema
       const productSchema = {
@@ -144,26 +138,6 @@ export function SEO({ title, description, keywords, image, product }: SEOProps =
           'name': product.brand
         },
         'category': product.category,
-        'offers': {
-          '@type': 'Offer',
-          'url': canonical,
-          'priceCurrency': 'INR',
-          'availability': 'https://schema.org/InStock',
-          'itemCondition': 'https://schema.org/NewCondition',
-          'seller': {
-            '@type': 'MedicalBusiness',
-            'name': 'Elite Biomedical Services',
-            'telephone': '+918078422393',
-            'address': {
-              '@type': 'PostalAddress',
-              'streetAddress': 'Door no.679/A Basement floor sreesastha building, Near kelluettan smaraka mandir, Edodi',
-              'addressLocality': 'Vadakara',
-              'addressRegion': 'Kerala',
-              'postalCode': '673101',
-              'addressCountry': 'IN'
-            }
-          }
-        }
       };
       injectJsonLd('dynamic-product-schema', productSchema);
 

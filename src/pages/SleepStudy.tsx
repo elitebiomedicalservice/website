@@ -1,4 +1,3 @@
-import React from 'react';
 import { PageHero } from '../components/PageHero';
 import { SleepStudy as SleepStudySection } from '../components/SleepStudy';
 import { HealthRisks } from '../components/HealthRisks';

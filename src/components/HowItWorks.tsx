@@ -1,4 +1,3 @@
-import React, { Children } from 'react';
 import { motion } from 'framer-motion';
 import { Settings, Filter, Activity, Wind } from 'lucide-react';
 export function HowItWorks() {

@@ -13,7 +13,7 @@
 - Local SEO focus districts: Vadakara, Kozhikode, Kannur, Wayanad, Malappuram
 - Nearby service area keywords: oxygen concentrator Vadakara, oxygen concentrator Kozhikode, oxygen concentrator Kozhikkode, oxygen concentrator Kannur, oxygen concentrator Wayanad, oxygen concentrator Malappuram, CPAP Vadakara, CPAP Kozhikode, CPAP Kozhikkode, BiPAP Kannur, home sleep study Vadakara, home sleep study Kozhikode, home sleep study Kozhikkode
 - Languages supported: English, Malayalam
-- Map coordinates: 11.597075984988566, 75.59170190132022
+- Map coordinates: 11.596561, 75.587810
 
 ## Core Services
 
@@ -25,17 +25,22 @@
 - Respiratory care consultation and device education
 - Emergency technical support for critical device issues
 
-## Local Service Area Focus
+## Listed Service Areas
 
-- Vadakara: primary local market and business location
-- Kozhikode: oxygen concentrators, CPAP, BiPAP, home sleep study, and service support
-- Kannur: oxygen concentrator support, CPAP/BiPAP guidance, and respiratory device service
-- Wayanad: respiratory care support, home sleep study support, and device guidance
-- Malappuram: oxygen concentrator sales/service, CPAP/BiPAP support, and respiratory care guidance
+The website lists Vadakara, Kozhikode, Kannur, Wayanad, and Malappuram. Contact the business to confirm availability and service coverage for a specific location.
 
 ## Priority Pages
 
 - Home: https://elitebiomedicalservice.com/
+- Product catalog: https://elitebiomedicalservice.com/products
+- Oxymed Inteli: https://elitebiomedicalservice.com/products/oxymed-inteli
+- Oxymed Cure 5 LPM: https://elitebiomedicalservice.com/products/oxymed-cure-5lpm
+- Oxymed Mini 5 LPM: https://elitebiomedicalservice.com/products/oxymed-mini-5lpm
+- Evox Oxygen Concentrator: https://elitebiomedicalservice.com/products/evox-5lpm
+- Oxymed Portable Oxygen Concentrator: https://elitebiomedicalservice.com/products/oxymed-p2-portable
+- Evox TwinPAP B19: https://elitebiomedicalservice.com/products/evox-twinpap-b19
+- BMC G2S V25 VT BiPAP: https://elitebiomedicalservice.com/products/bmc-g2s-v25-vt
+- Oxymed BiPAP ST: https://elitebiomedicalservice.com/products/oxymed-bipap-st
 - Oxygen concentrators: https://elitebiomedicalservice.com/oxygen-concentrators
 - Home sleep study: https://elitebiomedicalservice.com/sleep-study
 - CPAP and BiPAP: https://elitebiomedicalservice.com/cpap-bipap

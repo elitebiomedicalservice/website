@@ -1,5 +1,6 @@
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import {
   Shield,
   Clock,
@@ -10,7 +11,6 @@ import {
   PhoneCall,
   Activity } from
 'lucide-react';
-import heroSleepCareImage from '../assets/hero-sleep-care.jpeg';
 export function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
@@ -88,15 +88,15 @@ export function Hero() {
             </p>
 
             <div className="flex flex-wrap gap-4 mb-10">
-              <button className="bg-primary hover:bg-teal-800 text-white px-8 py-3.5 rounded-full font-medium transition-all shadow-float hover:shadow-glow flex items-center gap-2">
+              <Link to="/products" className="bg-primary hover:bg-teal-800 text-white px-8 py-3.5 rounded-full font-medium transition-all shadow-float hover:shadow-glow flex items-center gap-2">
                 Buy Concentrator <ArrowRight size={18} />
-              </button>
-              <button className="bg-white/90 hover:bg-white text-slate-900 border border-white px-8 py-3.5 rounded-full font-medium transition-all shadow-soft flex items-center gap-2 backdrop-blur">
+              </Link>
+              <Link to="/contact" className="bg-white/90 hover:bg-white text-slate-900 border border-white px-8 py-3.5 rounded-full font-medium transition-all shadow-soft flex items-center gap-2 backdrop-blur">
                 <PhoneCall size={18} className="text-primary" /> Book Service
-              </button>
-              <button className="bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-700 px-8 py-3.5 rounded-full font-medium transition-all shadow-soft flex items-center gap-2">
+              </Link>
+              <a href={`https://wa.me/918078422393?text=${encodeURIComponent('Hello Elite Biomedical Services, I would like to enquire about your products and services.')}`} target="_blank" rel="noreferrer" className="bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-700 px-8 py-3.5 rounded-full font-medium transition-all shadow-soft flex items-center gap-2">
                 <MessageCircle size={18} /> WhatsApp
-              </button>
+              </a>
             </div>
 
             <div className="flex flex-wrap gap-3">
@@ -130,13 +130,11 @@ export function Hero() {
             className="relative lg:h-[600px] flex items-center justify-center">
             
             {/* Main Image Container */}
-            <div className="relative w-full max-w-md mx-auto aspect-[4/5] rounded-3xl overflow-hidden shadow-card border-8 border-white/90">
+            <div className="relative w-full max-w-md mx-auto aspect-[4/5] rounded-3xl overflow-hidden shadow-card border-8 border-white/90 bg-white">
               <img
-                src={heroSleepCareImage}
-                alt="Patient sleeping comfortably during respiratory care"
-                className="w-full h-full object-cover" />
-              
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent"></div>
+                src="/products/oxymed-cure-5lpm.png"
+                alt="Oxymed Cure 5 LPM oxygen concentrator"
+                className="w-full h-full object-contain" />
             </div>
 
             {/* Floating UI Cards */}

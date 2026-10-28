@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { products } from '../data/products';
 import { ProductCard } from '../components/ProductCard';
 import { SEO } from '../components/SEO';
@@ -7,7 +8,11 @@ import { FinalCTA } from '../components/FinalCTA';
 import { Search, Filter, PhoneCall } from 'lucide-react';
 
 export function ProductsCatalog() {
-  const [selectedCategory, setSelectedCategory] = useState<string>('All');
+  const [searchParams] = useSearchParams();
+  const requestedCategory = searchParams.get('category');
+  const [selectedCategory, setSelectedCategory] = useState<string>(
+    requestedCategory && products.some((product) => product.category === requestedCategory) ? requestedCategory : 'All',
+  );
   const [searchQuery, setSearchQuery] = useState<string>('');
 
   const filteredProducts = products.filter(product => {
@@ -27,12 +32,12 @@ export function ProductsCatalog() {
     <div>
       <SEO
         title="2026 Product Catalog | Elite Biomedical Services"
-        description="Browse trusted respiratory and oxygen therapy equipment for home and clinical care across Kerala. Oxymed, Evox, and BMC devices."
+        description="Browse respiratory and oxygen therapy equipment listed by Elite Biomedical Services. Ask about pricing, availability, and service coverage."
       />
 
       <PageHero
         title="Product Catalog"
-        subtitle="Trusted respiratory and oxygen therapy equipment for home and clinical care — built for reliability, comfort, and everyday healthy living."
+        subtitle="Explore devices listed by Elite Biomedical Services. Confirm specifications, pricing, stock, and suitability with the supplier and your clinician."
       />
 
       <section className="py-16 bg-slate-50/50 dark:bg-slate-950 min-h-screen">
@@ -119,7 +124,7 @@ export function ProductsCatalog() {
                 Need Help Choosing the Right Machine?
               </h3>
               <p className="text-slate-300 text-sm md:text-base max-w-xl">
-                Our certified biomedical engineers and respiratory care specialists are ready to guide you based on your doctor prescription.
+                Our team can help you compare listed features with your clinician’s prescription. Contact us to check pricing, rental terms, and availability.
               </p>
             </div>
             
@@ -127,7 +132,7 @@ export function ProductsCatalog() {
               href="tel:+918078422393"
               className="shrink-0 bg-primary hover:bg-blue-600 text-white px-8 py-4 rounded-2xl font-bold transition-all shadow-lg flex items-center gap-3 text-sm md:text-base"
             >
-              <PhoneCall size={20} /> Speak to Bio-Engineer
+              <PhoneCall size={20} /> Call Our Team
             </a>
           </div>
 

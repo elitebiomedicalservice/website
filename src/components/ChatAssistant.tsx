@@ -1,4 +1,4 @@
-import React, { FormEvent, KeyboardEvent, useEffect, useRef, useState } from 'react';
+import { FormEvent, KeyboardEvent, useEffect, useRef, useState } from 'react';
 import { ChatMascot } from './ChatMascot';
 import './ChatAssistant.css';
 

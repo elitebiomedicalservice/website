@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import { Award, Clock, Users, ArrowRight, Phone } from "lucide-react";
 import souravImage from "../assets/sourav.jpeg";
 import sreerajImage from "../assets/sreeraj.jpeg";
@@ -101,6 +102,8 @@ export function MeetFounders() {
                   <img
                     src={f.image}
                     alt={`${f.name}, ${f.title}`}
+                    loading="lazy"
+                    decoding="async"
                     className="h-full w-full object-cover object-top"
                   />
                 </div>
@@ -145,8 +148,7 @@ export function MeetFounders() {
                 Why Patients Trust Us
               </h2>
               <p className="text-slate-600 mb-10 max-w-md">
-                We've built our reputation on delivering reliable, compassionate
-                care that produces real results.
+                We've built our reputation on delivering reliable, compassionate care that produces real results.
               </p>
 
               <div className="space-y-6">
@@ -210,9 +212,9 @@ export function MeetFounders() {
                   consultation or home sleep study today and experience the
                   Elite Biomedical difference.
                 </p>
-                <button className="inline-flex items-center gap-2 bg-white text-primary hover:bg-blue-50 px-6 py-3 rounded-full font-semibold transition-all shadow-md">
+                <Link to="/contact" className="inline-flex items-center gap-2 bg-white text-primary hover:bg-blue-50 px-6 py-3 rounded-full font-semibold transition-all shadow-md">
                   Contact Us <ArrowRight size={18} />
-                </button>
+                </Link>
               </div>
             </motion.div>
           </div>

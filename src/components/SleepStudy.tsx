@@ -1,5 +1,5 @@
-import React from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { Moon, Activity, Brain, Heart } from 'lucide-react';
 export function SleepStudy() {
   return (
@@ -110,9 +110,9 @@ export function SleepStudy() {
               )}
             </ul>
 
-            <button className="bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-3.5 rounded-full font-medium transition-all shadow-md">
+            <Link to="/contact?service=Home%20Sleep%20Study" className="inline-flex bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-3.5 rounded-full font-medium transition-all shadow-md">
               Book a Sleep Study
-            </button>
+            </Link>
           </motion.div>
         </div>
       </div>

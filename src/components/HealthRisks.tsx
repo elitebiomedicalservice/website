@@ -66,9 +66,10 @@ export function HealthRisks() {
             Risks of Untreated Breathing Disorders
           </h2>
           <p className="text-lg text-slate-600">
-            Ignoring sleep apnea or low oxygen levels can lead to severe
-            long-term health complications. Early diagnosis and therapy are
-            crucial.
+            Sleep apnea can be associated with health concerns and daytime
+            symptoms such as sleepiness. If you notice loud snoring, pauses in
+            breathing, or gasping during sleep, discuss them with a healthcare
+            provider. This information does not diagnose a condition.
           </p>
         </div>
 
@@ -104,8 +105,9 @@ export function HealthRisks() {
 
         <div className="mt-16 text-center">
           <p className="text-slate-500 text-sm max-w-2xl mx-auto">
-            Proper oxygen therapy and CPAP usage can significantly reduce these
-            risks, improving both longevity and daily quality of life.
+            A healthcare provider can assess symptoms and discuss appropriate
+            testing and treatment. Do not start oxygen or change device
+            settings without clinical guidance.
           </p>
         </div>
       </div>

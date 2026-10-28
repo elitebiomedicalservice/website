@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Wind, Info } from 'lucide-react';
 export function WhatIsConcentrator() {
@@ -38,9 +38,9 @@ export function WhatIsConcentrator() {
             </h2>
             <p className="text-lg text-slate-600 leading-relaxed mb-8">
               An oxygen concentrator is a medical device that takes in normal
-              air and delivers oxygen-rich air to people who have difficulty
-              breathing. Unlike oxygen cylinders, it does not store oxygen — it
-              continuously generates oxygen from surrounding air.
+                air and delivers oxygen-rich air. Unlike oxygen cylinders, it
+                does not store oxygen; it produces oxygen while powered and
+                operating. Use it only as prescribed by a healthcare provider.
             </p>
 
             <div className="bg-section p-6 rounded-2xl border border-teal-100 shadow-soft">
