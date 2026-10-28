@@ -1,5 +1,6 @@
 import React, { FormEvent, useEffect, useRef, useState } from 'react';
-import { Bot, MessageCircle, Send, X } from 'lucide-react';
+import { Send, X } from 'lucide-react';
+import { ChatMascot } from './ChatMascot';
 
 type ChatMessage = { role: 'user' | 'assistant'; content: string };
 
@@ -16,6 +17,7 @@ export function ChatAssistant() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const listRef = useRef<HTMLDivElement>(null);
+  const mascotPose = isLoading ? 'thinking' : messages.length === 0 ? 'wave' : 'present';
 
   useEffect(() => {
     listRef.current?.scrollTo({ top: listRef.current.scrollHeight, behavior: 'smooth' });
@@ -63,7 +65,7 @@ export function ChatAssistant() {
         <section aria-label="Elite Biomedical Services chat" className="mb-3 flex h-[min(560px,calc(100vh_-_110px))] w-[min(390px,calc(100vw_-_2rem))] flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl">
           <header className="flex items-center justify-between bg-teal-800 px-4 py-3 text-white">
             <div className="flex items-center gap-3">
-              <span className="flex h-10 w-10 items-center justify-center rounded-full bg-white/15"><Bot size={22} /></span>
+              <span className="flex h-11 w-11 items-center justify-center overflow-hidden rounded-full bg-white/15"><ChatMascot pose={mascotPose} size={48} /></span>
               <div><h2 className="font-semibold">Elite Biomedical Assistant</h2><p className="text-xs text-teal-100">Services, products & sleep study info</p></div>
             </div>
             <button aria-label="Close chat" onClick={() => setIsOpen(false)} className="rounded-lg p-2 hover:bg-white/10"><X size={20} /></button>
@@ -75,6 +77,7 @@ export function ChatAssistant() {
                 <div className="mb-4 max-w-[90%] rounded-2xl rounded-tl-sm bg-white p-3 text-sm leading-relaxed text-slate-700 shadow-sm">
                   Hello! I can help with Elite Biomedical’s products, services, and home sleep studies. What would you like to know?
                 </div>
+                <div className="mb-3 flex justify-center"><ChatMascot pose="wave" size={104} /></div>
                 <div className="space-y-2">
                   {suggestedQuestions.map((question) => (
                     <button key={question} onClick={() => sendMessage(undefined, question)} className="block rounded-full border border-teal-200 bg-white px-3 py-2 text-left text-xs text-teal-800 hover:bg-teal-50">{question}</button>
@@ -99,8 +102,8 @@ export function ChatAssistant() {
           <p className="bg-white px-3 pb-3 text-center text-[10px] leading-relaxed text-slate-400">General information only. For medical advice or emergencies, contact a clinician or emergency services.</p>
         </section>
       )}
-      <button onClick={() => setIsOpen((open) => !open)} aria-label={isOpen ? 'Close chat assistant' : 'Chat with Elite Biomedical'} aria-expanded={isOpen} className="ml-auto flex h-14 w-14 items-center justify-center rounded-full bg-teal-700 text-white shadow-lg transition hover:scale-105 hover:bg-teal-800">
-        {isOpen ? <X size={24} /> : <MessageCircle size={25} />}
+      <button onClick={() => setIsOpen((open) => !open)} aria-label={isOpen ? 'Close chat assistant' : 'Chat with Elite Biomedical'} aria-expanded={isOpen} className="ml-auto flex h-16 w-16 items-center justify-center overflow-hidden rounded-full bg-teal-700 text-white shadow-lg ring-2 ring-white transition hover:scale-105 hover:bg-teal-800">
+        {isOpen ? <X size={24} /> : <ChatMascot pose="walk" size={64} />}
       </button>
     </div>
   );
