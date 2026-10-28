@@ -5,6 +5,7 @@ import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import { SEO } from './components/SEO';
 import { ChatAssistant } from './components/ChatAssistant';
+import { ChatMascot } from './components/ChatMascot';
 
 const Home = lazy(() => import('./pages/Home').then((module) => ({ default: module.Home })));
 const OxygenConcentrators = lazy(() => import('./pages/OxygenConcentrators').then((module) => ({ default: module.OxygenConcentrators })));
@@ -15,6 +16,23 @@ const Contact = lazy(() => import('./pages/Contact').then((module) => ({ default
 const ProductsCatalog = lazy(() => import('./pages/ProductsCatalog').then((module) => ({ default: module.ProductsCatalog })));
 const ProductDetail = lazy(() => import('./pages/ProductDetail').then((module) => ({ default: module.ProductDetail })));
 
+function PageLoader() {
+  return (
+    <div className="page-loader" role="status" aria-label="Loading page">
+      <div className="page-loader-orbit" aria-hidden="true">
+        <span className="page-loader-ripple page-loader-ripple-one" />
+        <span className="page-loader-ripple page-loader-ripple-two" />
+        <span className="page-loader-disc" />
+        <ChatMascot pose="present" size={112} className="page-loader-mascot" />
+      </div>
+      <div className="page-loader-caption" aria-hidden="true">
+        <span>Preparing your page</span>
+        <i /><i /><i />
+      </div>
+    </div>
+  );
+}
+
 export function App() {
   return (
     <MotionConfig reducedMotion="user">
@@ -23,7 +41,7 @@ export function App() {
         <SEO />
         <Navbar />
         <main className="flex-grow">
-          <Suspense fallback={<div className="min-h-[60vh] flex items-center justify-center text-slate-600" role="status">Loading page…</div>}>
+          <Suspense fallback={<PageLoader />}>
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/products" element={<ProductsCatalog />} />
