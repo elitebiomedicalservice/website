@@ -37,8 +37,18 @@ export function ChatAssistant() {
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({ messages: nextMessages.slice(-8) }),
       });
-      const result = await response.json();
-      if (!response.ok) throw new Error(result.error || 'The assistant could not reply. Please try again.');
+      const result = await response.json().catch(() => null);
+      if (!response.ok) {
+        throw new Error(
+          result?.error ||
+          (response.status === 404
+            ? 'The chat service is not deployed on this server. Please contact support.'
+            : 'The assistant could not reply. Please try again or call us.')
+        );
+      }
+      if (!result?.answer) {
+        throw new Error('The assistant could not reply. Please try again.');
+      }
       setMessages((current) => [...current, { role: 'assistant', content: result.answer }]);
     } catch (requestError) {
       setError(requestError instanceof Error ? requestError.message : 'The assistant could not reply. Please try again.');
