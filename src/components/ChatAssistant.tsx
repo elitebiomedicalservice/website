@@ -1,109 +1,160 @@
-import React, { FormEvent, useEffect, useRef, useState } from 'react';
-import { Send, X } from 'lucide-react';
+import React, { FormEvent, KeyboardEvent, useEffect, useRef, useState } from 'react';
 import { ChatMascot } from './ChatMascot';
+import './ChatAssistant.css';
 
 type ChatMessage = { role: 'user' | 'assistant'; content: string };
+type MascotPose = 'wave' | 'thinking' | 'happy' | 'concerned' | 'neutral' | 'listening' | 'present';
 
-const suggestedQuestions = [
+const suggestions = [
   'What does a home sleep study check?',
+  'Tell me about your services',
   'Which BiPAP machines do you offer?',
-  'Do you deliver oxygen concentrators?',
 ];
 
 export function ChatAssistant() {
   const [isOpen, setIsOpen] = useState(false);
-  const [input, setInput] = useState('');
-  const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const [messages, setMessages] = useState<ChatMessage[]>([
+    { role: 'assistant', content: 'Hi there! I’m the Elite Biomedical Services assistant. What can I help you with?' },
+  ]);
+  const [draft, setDraft] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [pose, setPose] = useState<MascotPose>('neutral');
   const [error, setError] = useState('');
-  const listRef = useRef<HTMLDivElement>(null);
-  const mascotPose = isLoading ? 'thinking' : messages.length === 0 ? 'wave' : 'present';
+  const bottomRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    listRef.current?.scrollTo({ top: listRef.current.scrollHeight, behavior: 'smooth' });
-  }, [messages, isLoading, isOpen]);
+    bottomRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
+  }, [messages, isLoading, error, isOpen]);
 
-  async function sendMessage(event?: FormEvent, suggested?: string) {
-    event?.preventDefault();
-    const content = (suggested ?? input).trim();
-    if (!content || isLoading) return;
+  useEffect(() => {
+    if (isOpen) {
+      inputRef.current?.focus();
+      setPose('listening');
+    } else {
+      setPose('neutral');
+    }
+  }, [isOpen]);
 
-    const nextMessages: ChatMessage[] = [...messages, { role: 'user', content }];
+  async function send(content: string) {
+    const text = content.trim();
+    if (!text || isLoading) return;
+    const nextMessages: ChatMessage[] = [...messages, { role: 'user', content: text }];
     setMessages(nextMessages);
-    setInput('');
+    setDraft('');
     setError('');
     setIsLoading(true);
+    setPose('thinking');
+
     try {
       const response = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ messages: nextMessages.slice(-8) }),
+        body: JSON.stringify({ messages: nextMessages.slice(1).slice(-8) }),
       });
       const result = await response.json().catch(() => null);
       if (!response.ok) {
         throw new Error(
-          result?.error ||
-          (response.status === 404
-            ? 'The chat service is not deployed on this server. Please contact support.'
-            : 'The assistant could not reply. Please try again or call us.')
+          result?.error || (response.status === 404
+            ? 'The chat service is not available on this server. Please call us for help.'
+            : 'The assistant could not reply. Please try again or call us.'),
         );
       }
-      if (!result?.answer) {
+      if (typeof result?.answer !== 'string' || !result.answer.trim()) {
         throw new Error('The assistant could not reply. Please try again.');
       }
       setMessages((current) => [...current, { role: 'assistant', content: result.answer }]);
+      setPose('happy');
     } catch (requestError) {
       setError(requestError instanceof Error ? requestError.message : 'The assistant could not reply. Please try again.');
+      setPose('concerned');
     } finally {
       setIsLoading(false);
     }
   }
 
+  function submit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    void send(draft);
+  }
+
+  function handleKey(event: KeyboardEvent<HTMLInputElement>) {
+    if (event.key === 'Escape') setIsOpen(false);
+  }
+
   return (
-    <div className="fixed bottom-5 right-5 z-[60]">
+    <div
+      className={`chat-root${isOpen ? ' is-open' : ''}`}
+      onMouseEnter={() => { if (!isOpen) setPose('wave'); }}
+      onMouseLeave={() => { if (!isOpen) setPose('neutral'); }}
+    >
       {isOpen && (
-        <section aria-label="Elite Biomedical Services chat" className="mb-3 flex h-[min(560px,calc(100vh_-_110px))] w-[min(390px,calc(100vw_-_2rem))] flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl">
-          <header className="flex items-center justify-between bg-teal-800 px-4 py-3 text-white">
-            <div className="flex items-center gap-3">
-              <span className="flex h-11 w-11 items-center justify-center overflow-hidden rounded-full bg-white/15"><ChatMascot pose={mascotPose} size={48} /></span>
-              <div><h2 className="font-semibold">Elite Biomedical Assistant</h2><p className="text-xs text-teal-100">Services, products & sleep study info</p></div>
+        <section className="chat-panel" aria-label="Chat with Elite Biomedical Services">
+          <header className="chat-header">
+            <ChatMascot pose={isLoading ? 'thinking' : pose} className="brand-avatar" size={48} />
+            <div className="brand-copy">
+              <strong>Ask Elite Biomedical</strong>
+              <span><i /> Here to help with products &amp; services</span>
             </div>
-            <button aria-label="Close chat" onClick={() => setIsOpen(false)} className="rounded-lg p-2 hover:bg-white/10"><X size={20} /></button>
+            <button className="chat-close" type="button" aria-label="Close chat" onClick={() => setIsOpen(false)}>×</button>
           </header>
 
-          <div ref={listRef} aria-live="polite" className="flex-1 space-y-3 overflow-y-auto bg-slate-50 p-4">
-            {messages.length === 0 && (
-              <div>
-                <div className="mb-4 max-w-[90%] rounded-2xl rounded-tl-sm bg-white p-3 text-sm leading-relaxed text-slate-700 shadow-sm">
-                  Hello! I can help with Elite Biomedical’s products, services, and home sleep studies. What would you like to know?
-                </div>
-                <div className="mb-3 flex justify-center"><ChatMascot pose="wave" size={104} /></div>
-                <div className="space-y-2">
-                  {suggestedQuestions.map((question) => (
-                    <button key={question} onClick={() => sendMessage(undefined, question)} className="block rounded-full border border-teal-200 bg-white px-3 py-2 text-left text-xs text-teal-800 hover:bg-teal-50">{question}</button>
-                  ))}
-                </div>
-              </div>
-            )}
+          <div className="chat-messages" aria-live="polite" aria-relevant="additions text">
+            <div className="chat-day-label">TODAY</div>
             {messages.map((message, index) => (
-              <div key={`${index}-${message.role}`} className={`max-w-[88%] whitespace-pre-wrap rounded-2xl p-3 text-sm leading-relaxed ${message.role === 'user' ? 'ml-auto rounded-tr-sm bg-teal-700 text-white' : 'rounded-tl-sm bg-white text-slate-700 shadow-sm'}`}>
-                {message.content}
+              <div key={`${index}-${message.role}`} className={`chat-message-row ${message.role}`}>
+                {message.role === 'assistant' && <ChatMascot pose={index === 0 ? 'wave' : pose} className="chat-tiny-avatar" size={30} />}
+                <p className="chat-message-bubble">{message.content}</p>
               </div>
             ))}
-            {isLoading && <div className="w-fit rounded-2xl bg-white px-3 py-2 text-sm text-slate-500 shadow-sm">Thinking…</div>}
-            {error && <div role="alert" className="rounded-xl bg-rose-50 p-3 text-sm text-rose-700">{error} <a className="font-semibold underline" href="tel:+918078422393">Call us</a></div>}
+
+            {messages.length === 1 && (
+              <div className="chat-suggestions">
+                {suggestions.map((suggestion) => (
+                  <button key={suggestion} type="button" onClick={() => void send(suggestion)}>
+                    {suggestion}<span aria-hidden="true">↗</span>
+                  </button>
+                ))}
+              </div>
+            )}
+
+            {isLoading && (
+              <div className="chat-message-row assistant">
+                <ChatMascot pose="thinking" className="chat-tiny-avatar" size={30} />
+                <div className="chat-message-bubble chat-typing" aria-label="Assistant is thinking"><i /><i /><i /></div>
+              </div>
+            )}
+            {error && <div className="chat-error" role="alert">{error} <a href="tel:+918078422393">Call us</a></div>}
+            <div ref={bottomRef} />
           </div>
 
-          <form onSubmit={(event) => sendMessage(event)} className="flex items-center gap-2 border-t border-slate-200 bg-white p-3">
-            <label className="sr-only" htmlFor="assistant-message">Your message</label>
-            <input id="assistant-message" value={input} onChange={(event) => setInput(event.target.value)} maxLength={1000} placeholder="Ask us a question…" className="min-w-0 flex-1 rounded-xl border border-slate-200 px-3 py-2.5 text-sm text-slate-900 outline-none focus:border-teal-600 focus:ring-2 focus:ring-teal-100" />
-            <button type="submit" disabled={!input.trim() || isLoading} aria-label="Send message" className="flex h-10 w-10 items-center justify-center rounded-xl bg-teal-700 text-white hover:bg-teal-800 disabled:cursor-not-allowed disabled:opacity-50"><Send size={17} /></button>
+          <form className="chat-composer" onSubmit={submit}>
+            <input
+              ref={inputRef}
+              value={draft}
+              onChange={(event) => { setDraft(event.target.value); if (!isLoading) setPose('listening'); }}
+              onKeyDown={handleKey}
+              placeholder="Write a message…"
+              aria-label="Write a message"
+              maxLength={1000}
+            />
+            <button type="submit" aria-label="Send message" disabled={!draft.trim() || isLoading}>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 4 17 8-17 8 3-8-3-8Zm3 8h14" /></svg>
+            </button>
           </form>
-          <p className="bg-white px-3 pb-3 text-center text-[10px] leading-relaxed text-slate-400">General information only. For medical advice or emergencies, contact a clinician or emergency services.</p>
+          <div className="chat-powered">General information only <span>·</span> Medical advice from a clinician</div>
         </section>
       )}
-      <button onClick={() => setIsOpen((open) => !open)} aria-label={isOpen ? 'Close chat assistant' : 'Chat with Elite Biomedical'} aria-expanded={isOpen} className="ml-auto flex h-16 w-16 items-center justify-center overflow-hidden rounded-full bg-teal-700 text-white shadow-lg ring-2 ring-white transition hover:scale-105 hover:bg-teal-800">
-        {isOpen ? <X size={24} /> : <ChatMascot pose="walk" size={64} />}
+
+      <button
+        className="chat-launcher"
+        type="button"
+        onClick={() => setIsOpen((open) => !open)}
+        aria-label={isOpen ? 'Close chat' : 'Open chat'}
+        aria-expanded={isOpen}
+      >
+        {!isOpen && <ChatMascot pose={pose} className="launcher-mascot" size={100} />}
+        {isOpen && <span className="chat-launcher-close" aria-hidden="true">×</span>}
       </button>
     </div>
   );

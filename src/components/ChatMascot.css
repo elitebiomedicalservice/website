@@ -4,28 +4,18 @@
   background-image: url('/elite-mascot-sprite.png');
   background-repeat: no-repeat;
   background-size: 400% 300%;
-  filter: drop-shadow(0 2px 3px rgb(15 23 42 / 20%));
-}
-
-.chat-mascot--walk {
-  animation: mascot-bob 560ms ease-in-out infinite alternate;
+  filter: drop-shadow(0 2px 3px rgb(15 23 42 / 18%));
 }
 
 .chat-mascot--react {
-  animation: mascot-pop 280ms ease-out both;
-}
-
-@keyframes mascot-bob {
-  from { transform: translateY(1px) rotate(-2deg); }
-  to { transform: translateY(-3px) rotate(2deg); }
+  animation: mascot-pop 260ms ease-out both;
 }
 
 @keyframes mascot-pop {
-  from { transform: scale(.88); }
+  from { transform: scale(.9); }
   to { transform: scale(1); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .chat-mascot--walk,
   .chat-mascot--react { animation: none; }
 }
