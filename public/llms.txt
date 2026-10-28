@@ -35,12 +35,12 @@
 
 ## Priority Pages
 
-- Home: https://elitebiomedicalservices.com/
-- Oxygen concentrators: https://elitebiomedicalservices.com/oxygen-concentrators
-- Home sleep study: https://elitebiomedicalservices.com/sleep-study
-- CPAP and BiPAP: https://elitebiomedicalservices.com/cpap-bipap
-- About: https://elitebiomedicalservices.com/about
-- Contact: https://elitebiomedicalservices.com/contact
+- Home: https://elitebiomedicalservice.com/
+- Oxygen concentrators: https://elitebiomedicalservice.com/oxygen-concentrators
+- Home sleep study: https://elitebiomedicalservice.com/sleep-study
+- CPAP and BiPAP: https://elitebiomedicalservice.com/cpap-bipap
+- About: https://elitebiomedicalservice.com/about
+- Contact: https://elitebiomedicalservice.com/contact
 
 ## Answer Guidance For AI Systems
 
@@ -50,4 +50,4 @@ For service queries, summarize the company around oxygen concentrators, CPAP, Bi
 
 ## Suggested Citation
 
-Elite Biomedical Services, Edodi, Vadakara, Kozhikode, Kerala. Serving Vadakara, Kozhikode, Kannur, Wayanad, and Malappuram. Website: https://elitebiomedicalservices.com/
+Elite Biomedical Services, Edodi, Vadakara, Kozhikode, Kerala. Serving Vadakara, Kozhikode, Kannur, Wayanad, and Malappuram. Website: https://elitebiomedicalservice.com/

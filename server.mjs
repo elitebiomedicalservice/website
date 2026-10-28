@@ -85,7 +85,7 @@ async function handleChat(request, response) {
       headers: {
         authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
         'content-type': 'application/json',
-        'HTTP-Referer': process.env.SITE_URL || 'https://elitebiomedicalservices.com',
+        'HTTP-Referer': process.env.SITE_URL || 'https://elitebiomedicalservice.com',
         'X-Title': 'Elite Biomedical Services Assistant',
       },
       body: JSON.stringify({ model, messages: [{ role: 'system', content: systemPrompt }, ...history], temperature: 0.2, max_tokens: 500 }),

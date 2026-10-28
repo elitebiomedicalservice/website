@@ -40,5 +40,5 @@ Allow: /
 User-agent: CCBot
 Allow: /
 
-Sitemap: https://elitebiomedicalservices.com/sitemap.xml
-Sitemap: https://elitebiomedicalservices.com/llms.txt
+Sitemap: https://elitebiomedicalservice.com/sitemap.xml
+Sitemap: https://elitebiomedicalservice.com/llms.txt
