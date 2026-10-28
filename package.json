@@ -4,8 +4,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "npx vite",
+    "dev": "node scripts/dev.mjs",
     "build": "npx vite build",
+    "start": "node server.mjs",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "preview": "npx vite preview"
   },

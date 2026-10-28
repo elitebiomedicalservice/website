@@ -12,6 +12,7 @@ import { About } from './pages/About';
 import { Contact } from './pages/Contact';
 import { ProductsCatalog } from './pages/ProductsCatalog';
 import { ProductDetail } from './pages/ProductDetail';
+import { ChatAssistant } from './components/ChatAssistant';
 
 export function App() {
   return (
@@ -35,6 +36,7 @@ export function App() {
           </Routes>
         </main>
         <Footer />
+        <ChatAssistant />
       </div>
     </BrowserRouter>);
 
