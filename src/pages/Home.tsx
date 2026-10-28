@@ -1,4 +1,5 @@
 import { Hero } from '../components/Hero';
+import { HomeCategoryRail } from '../components/HomeCategoryRail';
 import { WhatIsConcentrator } from '../components/WhatIsConcentrator';
 import { ProductShowcase } from '../components/ProductShowcase';
 import { PartnerBrands } from '../components/PartnerBrands';
@@ -10,6 +11,7 @@ export function Home() {
   return (
     <div>
       <Hero />
+      <HomeCategoryRail />
       <WhatIsConcentrator />
       <ProductShowcase />
       <PartnerBrands />

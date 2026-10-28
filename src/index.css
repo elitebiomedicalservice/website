@@ -7,6 +7,12 @@
 /* END TAILWIND IMPORTS — ALL OTHER CSS MUST GO BELOW THIS LINE */
 
 @layer utilities {
+  .scrollbar-none {
+    scrollbar-width: none;
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
   .glass {
     @apply bg-white/75 dark:bg-slate-900/75 backdrop-blur-md border border-white/50 dark:border-slate-700/50 shadow-soft;
   }
