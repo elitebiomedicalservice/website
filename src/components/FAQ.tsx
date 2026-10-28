@@ -24,19 +24,21 @@ const questions = [
 
 export function FAQ() {
   return (
-    <section className="bg-section py-20" aria-labelledby="common-questions-title">
-      <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-        <div className="mb-10 text-center">
-          <h2 id="common-questions-title" className="mb-3 text-3xl font-bold text-slate-900 md:text-4xl">Common Questions</h2>
-          <p className="text-slate-600">Helpful information about equipment, services, and contacting our team.</p>
+    <section className="faq-feature" aria-labelledby="common-questions-title">
+      <div className="faq-feature-inner">
+        <div className="faq-feature-heading">
+          <span>Help &amp; information</span>
+          <h2 id="common-questions-title">FAQ</h2>
+          <p>Helpful answers about respiratory equipment, services, and getting support from our team.</p>
         </div>
-        <div className="space-y-3">
+        <div className="faq-feature-list">
           {questions.map(({ question, answer }) => (
-            <details key={question} className="group rounded-2xl border border-slate-200 bg-white p-5 shadow-sm open:border-teal-200">
-              <summary className="cursor-pointer list-none pr-8 font-semibold text-slate-900 marker:hidden focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary">
-                <span className="flex items-center justify-between gap-4">{question}<span aria-hidden="true" className="text-xl text-primary transition-transform group-open:rotate-45">+</span></span>
+            <details key={question} className="faq-feature-item">
+              <summary>
+                <span>{question}</span>
+                <span className="faq-feature-toggle" aria-hidden="true" />
               </summary>
-              <p className="mt-4 max-w-3xl text-sm leading-relaxed text-slate-600">{answer}</p>
+              <p>{answer}</p>
             </details>
           ))}
         </div>

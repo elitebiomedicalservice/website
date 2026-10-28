@@ -5,6 +5,8 @@ import { Phone, Mail, MapPin, AlertCircle, MessageCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
 const contactPhone = '+91 9496522393';
 const contactEmail = 'elitebiomedicalservice@gmail.com';
+const emailJsServiceId = import.meta.env.VITE_EMAILJS_SERVICE_ID || 'service_ghi3z9r';
+const emailJsTemplateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'template_pal9k8m';
 const contactAddress = [
   'Door no.679/A Basement floor sreesastha building',
   'Near kelluettan smaraka mandir, edodi, vadakara,',
@@ -16,32 +18,61 @@ function ContactForm() {
   const [searchParams] = useSearchParams();
   const requestedService = searchParams.get('service');
   const defaultService = serviceOptions.find((service) => service === requestedService) || serviceOptions[0];
-  const [handoffReady, setHandoffReady] = useState(false);
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const [sendState, setSendState] = useState<'idle' | 'sending' | 'sent' | 'error' | 'unconfigured'>('idle');
+  const [sendError, setSendError] = useState('');
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const values = new FormData(e.currentTarget);
-    const subject = `Website enquiry: ${String(values.get('service') || 'General question')}`;
-    const body = [
-      `Name: ${String(values.get('name') || '')}`,
-      `Phone: ${String(values.get('phone') || '')}`,
-      `Email: ${String(values.get('email') || 'Not provided')}`,
-      `Service: ${String(values.get('service') || '')}`,
-      '',
-      `Message: ${String(values.get('message') || 'No message provided')}`,
-    ].join('\n');
-    setHandoffReady(true);
-    window.location.href = `mailto:${contactEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    const form = e.currentTarget;
+    const values = new FormData(form);
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+    if (!publicKey) {
+      setSendState('unconfigured');
+      return;
+    }
+
+    setSendState('sending');
+    setSendError('');
+    try {
+      const response = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          service_id: emailJsServiceId,
+          template_id: emailJsTemplateId,
+          user_id: publicKey,
+          template_params: {
+            from_name: String(values.get('name') || ''),
+            name: String(values.get('name') || ''),
+            phone: String(values.get('phone') || ''),
+            reply_to: String(values.get('email') || ''),
+            email: String(values.get('email') || ''),
+            service: String(values.get('service') || ''),
+            message: String(values.get('message') || ''),
+            subject: `Website enquiry: ${String(values.get('service') || 'General question')}`,
+          },
+        }),
+      });
+
+      if (!response.ok) {
+        const errorMessage = await response.text();
+        throw new Error(errorMessage || 'Email enquiry could not be sent.');
+      }
+      setSendState('sent');
+      form.reset();
+    } catch (error) {
+      setSendError(error instanceof Error ? error.message : 'Email enquiry could not be sent.');
+      setSendState('error');
+    }
   };
   return (
     <div className="liquid-glass-card p-8 rounded-3xl">
       <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">
         Send us a Message
       </h3>
-      {handoffReady ?
-      <div role="status" className="bg-teal-50 dark:bg-teal-900/30 text-teal-800 dark:text-teal-300 p-4 rounded-xl mb-6 border border-teal-100 dark:border-teal-800">
-          Your email app should open with your enquiry ready. This website does not send or store the form. If it did not open, email {contactEmail} or call {contactPhone}.
-        </div> :
-      null}
+      {sendState === 'sent' && <div role="status" className="bg-teal-50 dark:bg-teal-900/30 text-teal-800 dark:text-teal-300 p-4 rounded-xl mb-6 border border-teal-100 dark:border-teal-800">Thanks for your enquiry. Our team will contact you shortly.</div>}
+      {sendState === 'unconfigured' && <div role="status" className="bg-amber-50 dark:bg-amber-900/20 text-amber-900 dark:text-amber-200 p-4 rounded-xl mb-6 border border-amber-200 dark:border-amber-800">Online email sending is not configured yet. You can still reach us at <a className="font-semibold underline" href={`mailto:${contactEmail}`}>{contactEmail}</a> or call {contactPhone}.</div>}
+      {sendState === 'error' && <div role="alert" className="bg-red-50 dark:bg-red-900/20 text-red-800 dark:text-red-200 p-4 rounded-xl mb-6 border border-red-200 dark:border-red-800">We couldn’t send your enquiry. {sendError && <span className="block mt-1 text-sm">{sendError}</span>} Please try again or email <a className="font-semibold underline" href={`mailto:${contactEmail}`}>{contactEmail}</a>.</div>}
       <form onSubmit={handleSubmit} aria-describedby="contact-form-note" className="space-y-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
@@ -56,7 +87,7 @@ function ContactForm() {
               autoComplete="name"
               className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-600 bg-white/50 dark:bg-slate-800/50 focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all dark:text-white"
               placeholder="John Doe" />
-            
+
           </div>
           <div>
             <label htmlFor="contact-phone" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
@@ -70,7 +101,7 @@ function ContactForm() {
               autoComplete="tel"
               className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-600 bg-white/50 dark:bg-slate-800/50 focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all dark:text-white"
               placeholder={contactPhone} />
-            
+
           </div>
         </div>
         <div>
@@ -84,7 +115,7 @@ function ContactForm() {
             autoComplete="email"
             className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-600 bg-white/50 dark:bg-slate-800/50 focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all dark:text-white"
             placeholder="john@example.com" />
-          
+
         </div>
         <div>
           <label htmlFor="contact-service" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
@@ -106,14 +137,15 @@ function ContactForm() {
             placeholder="How can we help you?">
           </textarea>
         </div>
-          <button
+        <button
           type="submit"
-          className="w-full bg-primary hover:bg-teal-700 text-white py-4 rounded-xl font-bold transition-all shadow-md">
-          
-          Prepare Email Enquiry
+          disabled={sendState === 'sending'}
+          className="w-full bg-primary hover:bg-teal-700 disabled:cursor-wait disabled:opacity-70 text-white py-4 rounded-xl font-bold transition-all shadow-md">
+
+          {sendState === 'sending' ? 'Sending…' : 'Send Email'}
         </button>
         <p className="text-xs text-slate-500 dark:text-slate-400" id="contact-form-note">
-          This opens your email app with the enquiry details. The website does not submit or store this form.
+          Your details are sent securely to our team through EmailJS and are not stored on this website.
         </p>
       </form>
     </div>);
@@ -174,7 +206,7 @@ function ContactInfo() {
           </h4>
           <p className="text-slate-600 dark:text-slate-300">
             {contactAddress.map((line) =>
-            <React.Fragment key={line}>
+              <React.Fragment key={line}>
                 {line}
                 <br />
               </React.Fragment>
@@ -207,7 +239,7 @@ export function Contact() {
       <PageHero
         title="Get in Touch"
         subtitle="We're here to help with your respiratory care needs across Kerala." />
-      
+
       <section className="py-24 bg-section">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12">
@@ -220,7 +252,7 @@ export function Contact() {
                 opacity: 1,
                 x: 0
               }}>
-              
+
               <ContactForm />
             </motion.div>
             <motion.div
@@ -232,7 +264,7 @@ export function Contact() {
                 opacity: 1,
                 x: 0
               }}>
-              
+
               <ContactInfo />
             </motion.div>
           </div>

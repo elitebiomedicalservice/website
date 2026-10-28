@@ -1,128 +1,125 @@
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import {
-  Wrench,
-  Truck,
+  ArrowUpRight,
   PhoneCall,
+  Settings,
   ShieldCheck,
+  Truck,
   Users,
-  Settings } from
-'lucide-react';
+  Wrench,
+} from 'lucide-react';
 import { Link } from 'react-router-dom';
-export function ServiceSupport() {
-  const services = [
+
+const services = [
   {
-    icon: <Truck size={24} />,
+    icon: Truck,
     title: 'Home Delivery & Setup',
-    desc: 'Fast delivery and professional installation at your doorstep.'
+    desc: 'Fast delivery and professional installation at your doorstep.',
   },
   {
-    icon: <Wrench size={24} />,
+    icon: Wrench,
     title: 'Repairs & Maintenance',
-    desc: 'Expert technicians for quick servicing of all major brands.'
+    desc: 'Expert technicians for quick servicing of all major brands.',
   },
   {
-    icon: <PhoneCall size={24} />,
+    icon: PhoneCall,
     title: '24/7 Technical Support',
-    desc: 'Round-the-clock assistance for any device emergencies.'
+    desc: 'Round-the-clock assistance for any device emergencies.',
   },
   {
-    icon: <Users size={24} />,
+    icon: Users,
     title: 'Patient Guidance',
-    desc: 'Comprehensive training on device usage and safety.'
+    desc: 'Comprehensive training on device usage and safety.',
   },
   {
-    icon: <ShieldCheck size={24} />,
+    icon: ShieldCheck,
     title: 'Warranty Support',
-    desc: 'Hassle-free warranty claims and replacement parts.'
+    desc: 'Hassle-free warranty claims and replacement parts.',
   },
   {
-    icon: <Settings size={24} />,
+    icon: Settings,
     title: 'Spare Parts',
-    desc: 'Genuine filters, masks, and accessories available.'
-  }];
+    desc: 'Genuine filters, masks, and accessories available.',
+  },
+];
+
+export function ServiceSupport() {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const activeService = services[activeIndex];
+  const ActiveIcon = activeService.icon;
 
   return (
-    <section className="py-24 bg-slate-900 text-white overflow-hidden relative">
-      <div className="absolute inset-0 bg-[linear-gradient(135deg,#0f172a,#102421_54%,#082f49)]"></div>
-      <div className="parallax-band absolute inset-x-0 top-0 h-72 opacity-35"></div>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        <div className="grid lg:grid-cols-3 gap-12 items-center">
-          <div className="lg:col-span-1">
-            <motion.div
-              initial={{
-                opacity: 0,
-                x: -20
-              }}
-              whileInView={{
-                opacity: 1,
-                x: 0
-              }}
-              viewport={{
-                once: true
-              }}>
-              
-              <h2 className="text-3xl md:text-4xl font-bold mb-6">
-                Comprehensive Service & Support
-              </h2>
-              <p className="text-slate-400 mb-8 text-lg">
-                We don't just sell equipment; we ensure it runs perfectly when
-                you need it most. Our dedicated service team covers all of
-                Kerala.
-              </p>
-
-              <div className="bg-white/10 backdrop-blur-md border border-white/15 p-6 rounded-2xl shadow-glass-dark">
-                <div className="text-4xl font-bold text-secondary mb-2">
-                  1000+
-                </div>
-                <div className="text-sm text-slate-300">
-                  Devices Serviced Annually
-                </div>
-                <div className="mt-4 pt-4 border-t border-white/10">
-                  <Link to="/contact" className="block w-full bg-primary hover:bg-teal-600 text-center text-white py-3 rounded-xl font-medium transition-colors shadow-float">
-                    Request Service
-                  </Link>
-                </div>
-              </div>
-            </motion.div>
+    <section className="service-expertise" aria-labelledby="service-expertise-title">
+      <div className="service-expertise-glow" aria-hidden="true" />
+      <div className="service-expertise-inner">
+        <motion.aside
+          className="service-expertise-intro"
+          initial={{ opacity: 0, y: 18 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.25 }}
+          transition={{ duration: 0.55 }}
+        >
+          <div className="service-expertise-eyebrow">Our expertise</div>
+          <div className="service-expertise-count">06 services</div>
+          <h2 id="service-expertise-title">Comprehensive service &amp; support</h2>
+          <p>
+            We do not just sell equipment. Our dedicated team helps keep it
+            working when you need it most, with service coverage across Kerala.
+          </p>
+          <div className="service-expertise-stat">
+            <strong>1000<span>+</span></strong>
+            <span>devices serviced annually</span>
           </div>
+          <Link to="/contact" className="service-expertise-request">
+            Request service <ArrowUpRight size={17} aria-hidden="true" />
+          </Link>
+        </motion.aside>
 
-          <div className="lg:col-span-2">
-            <div className="grid sm:grid-cols-2 gap-4">
-              {services.map((service, idx) =>
-              <motion.div
-                key={idx}
-                initial={{
-                  opacity: 0,
-                  y: 20
-                }}
-                whileInView={{
-                  opacity: 1,
-                  y: 0
-                }}
-                viewport={{
-                  once: true
-                }}
-                transition={{
-                  delay: idx * 0.1
-                }}
-                className="bg-white/5 border border-white/10 p-6 rounded-2xl hover:bg-white/10 transition-colors shadow-glass-dark">
-                
-                  <div className="w-12 h-12 rounded-xl bg-teal-400/15 text-secondary flex items-center justify-center mb-4">
-                    {service.icon}
-                  </div>
-                  <h3 className="text-lg font-semibold mb-2">
-                    {service.title}
-                  </h3>
-                  <p className="text-slate-400 text-sm leading-relaxed">
-                    {service.desc}
-                  </p>
-                </motion.div>
-              )}
-            </div>
-          </div>
+        <div className="service-expertise-list" role="group" aria-label="Available services">
+          {services.map((service, index) => {
+            const isActive = index === activeIndex;
+            return (
+              <motion.button
+                key={service.title}
+                type="button"
+                className={`service-expertise-row${isActive ? ' is-active' : ''}`}
+                aria-pressed={isActive}
+                onClick={() => setActiveIndex(index)}
+                initial={{ opacity: 0, x: 16 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, amount: 0.15 }}
+                transition={{ duration: 0.4, delay: index * 0.045 }}
+              >
+                <span className="service-expertise-number">{String(index + 1).padStart(2, '0')}</span>
+                <span className="service-expertise-name">{service.title}</span>
+                <ArrowUpRight className="service-expertise-arrow" size={23} aria-hidden="true" />
+              </motion.button>
+            );
+          })}
         </div>
-      </div>
-    </section>);
 
+        <motion.div
+          className="service-expertise-feature"
+          key={activeService.title}
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.32 }}
+          aria-live="polite"
+        >
+          <div className="service-expertise-art">
+            <div className="service-expertise-art-grid" aria-hidden="true" />
+            <span className="service-expertise-feature-icon"><ActiveIcon size={34} strokeWidth={1.6} /></span>
+            <span className="service-expertise-feature-number">{String(activeIndex + 1).padStart(2, '0')}</span>
+            <span className="service-expertise-art-caption">Care, every step of the way</span>
+          </div>
+          <h3>{activeService.title}</h3>
+          <p>{activeService.desc}</p>
+          <Link to="/contact" className="service-expertise-detail-link">
+            Ask about this service <ArrowUpRight size={16} aria-hidden="true" />
+          </Link>
+        </motion.div>
+      </div>
+    </section>
+  );
 }

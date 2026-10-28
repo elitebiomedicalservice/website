@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { ArrowLeft, ArrowRight, MoveUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import supportImage from '../assets/sourav.jpeg';
+import supportImage from '../assets/service-technician.webp';
 import sleepStudyImage from '../assets/hero-sleep-care.jpeg';
 
 const careCategories = [
@@ -38,7 +38,7 @@ const careCategories = [
     detail: 'Installation, repairs, and guidance',
     href: '/contact?service=Device%20Servicing',
     image: supportImage,
-    imageAlt: 'Elite Biomedical Services team member',
+    imageAlt: 'Biomedical technician repairing respiratory equipment in a service workshop',
   },
 ];
 
